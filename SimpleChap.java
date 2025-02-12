@@ -13,26 +13,26 @@ public class SimpleChap {
 	public static void main(String[] args) {
 		//float array to store sample from fetchSample
 		float[] sample = new float[1];
-        float[] sample2 = new float[clapDetector.sampleSize()]; //this will hold sound data
+        	float[] sample2 = new float[clapDetector.sampleSize()]; //this will hold sound data
 		
 		//define motors and sensor
 		BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
 		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
 		
-        NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2); //CHANGE PORT IF NEEDED 
-        SampleProvider sound = soundSensor.getDBAMode();
-        SampleProvider clapDetector = new ClapFilter(soundSensor, 0.6f, 100); //assuming 0.6 threshold, 100ms gap time btwn claps
+        	NXTSoundSensor soundSensor = new NXTSoundSensor(SensorPort.S2); //CHANGE PORT IF NEEDED 
+        	SampleProvider sound = soundSensor.getDBAMode();
+        	SampleProvider clapDetector = new ClapFilter(soundSensor, 0.6f, 100); //assuming 0.6 threshold, 100ms gap time btwn claps
         
-        System.out.println("Waiting for clap to be heard");
-        while (true) { //listening loop which breaks once clap has been heard
-            clapDetector.fetchSample(sample2, 0); 
-            if (sample2[0] == 1.0f) { //clapDetector level 1.0 indicates filter has heard a clap
-                System.out.println("Clap heard, Robbie moving forward.");
-                mLeft.forward();
-                mRight.forward();
-                break;
-            }
-        }
+        	System.out.println("Waiting for clap to be heard");
+        	while (true) { //listening loop which breaks once clap has been heard
+            		clapDetector.fetchSample(sample2, 0); 
+            		if (sample2[0] == 1.0f) { //clapDetector level 1.0 indicates filter has heard a clap
+                		System.out.println("Clap heard, Robbie moving forward.");
+                		mLeft.forward();
+                		mRight.forward();
+                		break;
+            		}
+        	}
 		NXTUltrasonicSensor sensor = new NXTUltrasonicSensor(SensorPort.S1);
 		sensor.enable(); //enable sensor yippee
 		
